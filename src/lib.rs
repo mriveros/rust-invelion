@@ -77,7 +77,7 @@ impl Reader {
         let mut port = serial::open(port)
             .map_err(|e| format!("Unable to connect to serial port {}: {:?}", port, e))?;
         port.reconfigure(&|settings| {
-            try!(settings.set_baud_rate(serial::Baud115200));
+            (settings.set_baud_rate(serial::Baud115200))?;
             settings.set_char_size(serial::Bits8);
             settings.set_parity(serial::ParityNone);
             settings.set_stop_bits(serial::Stop1);
