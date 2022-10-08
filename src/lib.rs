@@ -58,7 +58,7 @@ use crate::protocol::{
 
 // Some operations can be quite slow, especially with a lot of tags around.
 // I've definitely seen operations take longer than 1sec to complete.
-const READ_TIMEOUT: Duration = Duration::from_millis(5000);
+const READ_TIMEOUT: Duration = Duration::from_millis(10000);
 
 /// Invelion reader
 pub struct Reader {
@@ -321,6 +321,7 @@ impl Reader {
             if response.status == Some(ResponseCode::NoTagError) {
                 // No tags found
                 return Ok(results);
+
             }
             let (tag_count, packet) = ReadResult::from_bytes(&response.data)?;
             results.push(packet);
